@@ -1,24 +1,33 @@
+// Input Function
+function getInputValue(value) {
+  const inputField = document.getElementById(value);
+  const totalAmount = parseFloat(inputField.value);
+  if (totalAmount < 0) {
+    alert("Please Enter a Positive Number");
+  }
+  else if (totalAmount >= 0) {
+    return totalAmount;
+  }
+  inputField.value = '';
+  return totalAmount;
+}
+
+
+
 // calculate button handler
 document.getElementById('calculate-button').addEventListener('click', function () {
+
   // income input 
-  const incomeInput = document.getElementById('income-input');
-  const incomeAmount = parseFloat(incomeInput.value);
-  incomeInput.value = '';
+  const incomeAmount = getInputValue('income-input');
 
   // Food input 
-  const foodInput = document.getElementById('food-input');
-  const foodAmount = parseFloat(foodInput.value);
-  foodInput.value = '';
+  const foodAmount = getInputValue('food-input');
 
   // Rent input
-  const rentInput = document.getElementById('rent-input');
-  const rentAmount = parseFloat(rentInput.value);
-  rentInput.value = '';
+  const rentAmount = getInputValue('rent-input');
 
   // Clothes input
-  const clothesInput = document.getElementById('clothes-input');
-  const clothesAmount = parseFloat(clothesInput.value);
-  clothesInput.value = '';
+  const clothesAmount = getInputValue('clothes-input');
 
   // Total expenses
   const totalExpenses = document.getElementById('total-expenses');
