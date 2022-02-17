@@ -20,6 +20,7 @@ document.getElementById('calculate-button').addEventListener('click', function (
   // income input 
   const incomeAmount = getInputValue('income-input');
 
+
   // Food input 
   const foodAmount = getInputValue('food-input');
 
@@ -42,8 +43,13 @@ document.getElementById('calculate-button').addEventListener('click', function (
   // balance innertext section
   const balance = document.getElementById('balance');
   const balanceText = parseFloat(balance.innerText);
-  balance.innerText = parseFloat(incomeAmount - totalExpensesAmount);
+  balance.innerText = parseFloat((isNaN(incomeAmount) ? 0 : +incomeAmount) - (isNaN(totalExpensesAmount) ? 0 : +totalExpensesAmount));
   const balanceAmount = balance.innerText;
+
+  if (balanceAmount < 0) {
+    alert("Your current balance is low");
+    balanceAmount = 0;
+  }
 
   // Remaining Balance section -1 
   const remainingBalance = document.getElementById('remaining-balance');
@@ -58,25 +64,29 @@ document.getElementById('save-button').addEventListener('click', function () {
   const saveInput = document.getElementById('save-input');
   const saveAmount = parseFloat(saveInput.value);
   saveInput.value = '';
+
+  if (saveAmount < 0 || saveAmount > 100) {
+    alert("Enter a valid percentage");
+    saveAmount = 0;
+  }
   // Saving Amount section 
   const saving = document.getElementById('saving-amount');
   const savingText = parseFloat(saving.innerText);
-  // const balance = document.getElementById('balance');
-  // const balanceAmount = balance.innerText;
+
   const incomeInput = document.getElementById('income-input');
   const incomeAmount = parseFloat(incomeInput.value);
-  saving.innerText = parseFloat((saveAmount / 100) * incomeAmount);
+
+  saving.innerText = parseFloat(isNaN((saveAmount / 100)) ? 0 : +(saveAmount / 100) * (isNaN(incomeAmount) ? 0 : +incomeAmount));
   const savingAmount = saving.innerText;
+
 
   // Remaining Balance section -2 
   const balance = document.getElementById('balance');
   const balanceAmount = balance.innerText;
   const remainingBalance = document.getElementById('remaining-balance');
-  remainingBalance.innerText = parseFloat(balanceAmount - savingAmount);
+  remainingBalance.innerText = parseFloat((isNaN(balanceAmount) ? 0 : +balanceAmount) - (isNaN(savingAmount) ? 0 : +savingAmount));
 
 
-  if (savingAmount > balanceAmount) {
-    alert("Your current balance is low");
-  }
+
 })
 
